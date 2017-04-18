@@ -27,4 +27,10 @@ func main() {
 		log.Fatal("Failed to get: ", err)
 	}
 	fmt.Println("O valor de wilson é ", result)
+
+	access, err := client.Incr("access").Result()
+	if err != nil {
+		log.Fatal("Failed to incr access: ", err)
+	}
+	fmt.Println("Access: ", access)
 }

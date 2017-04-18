@@ -12,7 +12,7 @@ type UpsertCarHandler struct{}
 
 func (h *UpsertCarHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	params := httptreemux.ContextParams(r.Context())
-	fmt.Fprintf(w, "Eu deveria criar um carro chamado: %s!", params["id"])
+	fmt.Fprintf(w, "Eu deveria criar um carro chamado: %s!\n", params["id"])
 	fmt.Fprintln(w, "Não crio por que sou mal!")
 }
 
@@ -20,13 +20,19 @@ type GetCarHandler struct{}
 
 func (h *GetCarHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	params := httptreemux.ContextParams(r.Context())
-	fmt.Fprintf(w, "Eu deveria busca um carro chamado: %s!", params["id"])
+	fmt.Fprintf(w, "Eu deveria busca um carro chamado: %s!\n", params["id"])
 	fmt.Fprintln(w, "Não busco por que estou com preguiça!")
 }
 
+type ListCarHandler struct{}
+
+func (h *ListCarHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Eu deveria listar todos os carros aqui")
+}
 func main() {
-	addr := "127.0.0.1:8081"
+	addr := "127.0.0.1:8082"
 	router := httptreemux.NewContextMux()
+	router.Handler(http.MethodGet, "/cars", &ListCarHandler{})
 	router.Handler(http.MethodGet, "/cars/:id", &GetCarHandler{})
 	router.Handler(http.MethodPut, "/cars/:id", &UpsertCarHandler{})
 

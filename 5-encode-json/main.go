@@ -7,9 +7,9 @@ import (
 )
 
 type Person struct {
-	FirstName string
-	LastName  string
-	Age       int
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName,omitempty"`
+	Age       int    `json:"age"`
 }
 
 type MyHandler struct{}
@@ -17,8 +17,8 @@ type MyHandler struct{}
 func (h *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	person := &Person{
 		FirstName: "Wilson",
-		LastName:  "Júnior",
-		Age:       24,
+		// LastName:  "Júnior",
+		Age: 24,
 	}
 	encoder := json.NewEncoder(w)
 	err := encoder.Encode(person)

@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-const MyUsername = "wpjunior"
+const MyUsername = "mateuspontes"
 
 type User struct {
 	Name    string `json:"name"`
